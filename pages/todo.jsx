@@ -1,7 +1,5 @@
-import Head from "next/head";
-import Script from "next/script";
 import React from "react";
-import { useState } from "react";
+
 
 const weekday = [
   "Sunday",
@@ -46,6 +44,11 @@ const addtask = () => {
   // USING DOCUMENT ELEMENT OUTSIDE FUNCTION
   // RESEARCH ON "ReactDOM"
 
+  const deleteTask = () => {
+    TaskContainer.remove();
+    console.log("deleted Task");
+  };
+
   let titleInput = document.getElementById("title-input").value;
   let descInput = document.getElementById("desc-input").value;
 
@@ -53,25 +56,39 @@ const addtask = () => {
   let desc = document.getElementById("desc");
 
   // create title element
+  let TaskContainer = document.createElement("div");
+
   let heading = document.createElement("h1");
   var titlenode = document.createTextNode(titleInput);
+  heading.setAttribute(
+    "class",
+    "text-2xl font-medium text-gray-900 title-font mb-2"
+  );
   heading.appendChild(titlenode);
-  document.getElementById("task-container").appendChild(heading);
+  TaskContainer.appendChild(heading);
 
+  // create description element
   let description = document.createElement("p");
-  var descnode = document.createTextNode(descInput);
+  let descnode = document.createTextNode(descInput);
+  description.setAttribute("class", "leading-relaxed");
   description.appendChild(descnode);
-  document.getElementById("task-container").appendChild(description);
+  TaskContainer.appendChild(description);
 
+  // create delete task btn
+  let deletebtn = document.createElement("button");
+  let deletebtnnode = document.createTextNode("Delete");
+  deletebtn.setAttribute(
+    "class",
+    "text-purple-500 inline-flex items-center mt-4 cursor-pointer"
+  );
+  deletebtn.appendChild(deletebtnnode);
+  TaskContainer.appendChild(deletebtn);
+  deletebtn.addEventListener("click", deleteTask);
 
-  // Displaying Input Data as Task 
-  title.innerText = titleInput;
-  desc.innerText = descInput;
+  let Alltasks = document.getElementById("tasks");
+  Alltasks.appendChild(TaskContainer);
 
-  // console.log("add task");
 };
-
-const deleteTask = () => {};
 
 const Todo = () => {
   return (
@@ -127,90 +144,10 @@ const Todo = () => {
                     <br /> {time}
                   </span>
                 </div>
-                <div id="task-container" className="md:flex-grow">
-                  <h2
-                    id="title"
-                    className="text-2xl font-medium text-gray-900 title-font mb-2"
-                  >
-                    Bitters hashtag waistcoat fashion axe chia unicorn
-                  </h2>
-                  <p id="desc" className="leading-relaxed">
-                    Glossier echo park pug, church-key sartorial biodiesel
-                    vexillologist pop-up snackwave ramps cornhole. Marfa 3 wolf
-                    moon party messenger bag selfies, poke vaporware kombucha
-                    lumbersexual pork belly polaroid hoodie portland craft beer.
-                  </p>
-                  <button
-                    onClick={deleteTask}
-                    className="text-purple-500 inline-flex items-center mt-4"
-                  >
-                    Delete
-                  </button>
+                <div id="tasks">
+                  <div id="task-container" className="md:flex-grow"></div>
                 </div>
               </div>
-
-              {/* -------------------------------------------------------------------------------------------------------------- */}
-
-              {/* <div className="py-8 flex flex-wrap md:flex-nowrap">
-              <div className="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
-                <span className="font-semibold title-font text-gray-700">
-                  {day}
-                </span>
-                <span className="mt-1 text-gray-500 text-sm">
-                  {date} {month} {year}
-                </span>
-              </div>
-              <div className="md:flex-grow">
-                <h2 className="text-2xl font-medium text-gray-900 title-font mb-2">
-                  Meditation bushwick direct trade taxidermy shaman
-                </h2>
-                <p className="leading-relaxed">
-                  Glossier echo park pug, church-key sartorial biodiesel
-                  vexillologist pop-up snackwave ramps cornhole. Marfa 3 wolf
-                  moon party messenger bag selfies, poke vaporware kombucha
-                  lumbersexual pork belly polaroid hoodie portland craft beer.
-                </p>
-                <button className="text-purple-500 inline-flex items-center mt-4">
-                  Learn More
-                </button>
-              </div>
-            </div> */}
-              {/* <div className="py-8 flex flex-wrap md:flex-nowrap">
-              <div className="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
-                <span className="font-semibold title-font text-gray-700">
-                  {day}
-                </span>
-                <span className="text-sm text-gray-500">
-                  {date} {month} {year}
-                </span>
-              </div>
-              <div className="md:flex-grow">
-                <h2 className="text-2xl font-medium text-gray-900 title-font mb-2">
-                  Woke master cleanse drinking vinegar salvia
-                </h2>
-                <p className="leading-relaxed">
-                  Glossier echo park pug, church-key sartorial biodiesel
-                  vexillologist pop-up snackwave ramps cornhole. Marfa 3 wolf
-                  moon party messenger bag selfies, poke vaporware kombucha
-                  lumbersexual pork belly polaroid hoodie portland craft beer.
-                </p>
-                <a className="text-purple-500 inline-flex items-center mt-4">
-                  Learn More
-                  <svg
-                    className="w-4 h-4 ml-2"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M5 12h14"></path>
-                    <path d="M12 5l7 7-7 7"></path>
-                  </svg>
-                </a>
-              </div>
-            </div> */}
             </div>
           </div>
         </section>
