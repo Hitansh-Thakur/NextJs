@@ -1,43 +1,29 @@
 import React from "react";
+import { useState } from "react";
 
 
-const weekday = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
-const months = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
-];
 
-const today = new Date();
-let day = weekday[today.getDay()];
-let date = `${today.getDate()} ${
-  months[today.getMonth()]
-} ${today.getFullYear()} `;
-let minutes = today.getMinutes();
-let hour = today.getHours();
-if (hour > 12) {
-  hour = hour % 12;
-}
-let time = `${hour}:${minutes < 10 ? "0" + minutes : minutes} ${
-  hour < 12 ? "PM" : "AM"
-}`;
+const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 const addtask = () => {
   // GET A SOLUTION TO GET INITIALIZATION STATEMENTS OUT OF FUNCTIONS
@@ -90,7 +76,42 @@ const addtask = () => {
 
 };
 
+
+let hi ="hi"
+
 const Todo = () => {
+  const todayd = new Date()
+
+  // const [today, settoday] = useState('todayd');
+  const [today, settoday] = useState( [ new Date()])
+  console.log(`\n\n\nTODAY IS  ${typeof(today)}\n\n\n`)
+
+  // let day = weekday[today.getDay()];
+  const [day, setday] = useState(weekday[today.getDay()])
+
+  // let date = `${today.getDate()} ${months[today.getMonth()]} ${today.getFullYear()} `;
+  
+  settoday(`${today.getDate()} ${months[today.getMonth()]} ${today.getFullYear()}`)
+
+  // let minutes = today.getMinutes();
+  const [minutes, setminutes] = useState(today.getMinutes())
+
+  // let hour = today.getHours();
+  const [hour, sethour] = useState(today.getHours())
+
+
+  if (hour > 12) {
+    // hour = hour % 12;
+    sethour(hour % 12)
+  }
+
+  
+// let time = `${hour}:${minutes < 10 ? "0" + minutes : minutes} ${hour < 12 ? "PM" : "AM"}`;
+const [time, settime] = useState(`${hour}:${minutes < 10 ? "0" + minutes : minutes} ${hour < 12 ? "PM" : "AM"}`)
+
+
+
+
   return (
     <>
       <div>
@@ -137,10 +158,10 @@ const Todo = () => {
               <div className="py-8 flex flex-wrap md:flex-nowrap">
                 <div className="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
                   <span className="font-semibold title-font text-gray-700">
-                    {day}
+                    {/* {day} */}
                   </span>
                   <span className="mt-1 text-gray-500 text-sm">
-                    {date}
+                    {today}
                     <br /> {time}
                   </span>
                 </div>
