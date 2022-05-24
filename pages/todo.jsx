@@ -1,92 +1,73 @@
 import React from "react";
 
-
-const weekday = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
-const months = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
-];
-
-const today = new Date();
-let day = weekday[today.getDay()];
-let date = `${today.getDate()} ${
-  months[today.getMonth()]
-} ${today.getFullYear()} `;
-let minutes = today.getMinutes();
-let hour = today.getHours();
-if (hour > 12) {
-  hour = hour % 12;
-}
-let time = `${hour}:${minutes < 10 ? "0" + minutes : minutes} ${
-  hour < 12 ? "PM" : "AM"
-}`;
-
 const addtask = () => {
+  const weekday = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  const today = new Date();
+  let day = weekday[today.getDay()];
+  let date = `${today.getDate()} ${months[today.getMonth()]} ${today.getFullYear()} `;
+  let minutes = today.getMinutes();
+  let hour = today.getHours();
+  if (hour > 12) {
+    hour = hour % 12;
+  }
+  let time = `${hour}:${minutes < 10 ? "0" + minutes : minutes} ${hour < 12 ? "PM" : "AM"
+    }`;
+
+
   // GET A SOLUTION TO GET INITIALIZATION STATEMENTS OUT OF FUNCTIONS
   // USING DOCUMENT ELEMENT OUTSIDE FUNCTION
   // RESEARCH ON "ReactDOM"
 
   const deleteTask = () => {
-    TaskContainer.remove();
+    task.remove();
     console.log("deleted Task");
   };
 
   let titleInput = document.getElementById("title-input").value;
   let descInput = document.getElementById("desc-input").value;
 
-  let title = document.getElementById("title");
-  let desc = document.getElementById("desc");
+  let task = document.createElement("div")
+  task.innerHTML = `<div class="py-8 flex flex-wrap md:flex-nowrap">
+  <div class="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
+    <span class="font-semibold title-font text-gray-700">${day}</span>
+    <span class="mt-1 text-gray-500 text-sm">${date}</span>
+    <span class="mt-1 text-gray-500 text-sm">${time}</span>
+  </div>
+  <div class="md:flex-grow">
+    <h2 class="text-2xl font-medium text-gray-900 title-font mb-2">${titleInput}</h2>
+    <p class="leading-relaxed">${descInput}.</p>
+    <button onClick="deleteTask" class="text-blue-500 inline-flex items-center mt-4">Delete</button>
+  </div>
+</div>`
 
-  // create title element
-  let TaskContainer = document.createElement("div");
 
-  let heading = document.createElement("h1");
-  var titlenode = document.createTextNode(titleInput);
-  heading.setAttribute(
-    "class",
-    "text-2xl font-medium text-gray-900 title-font mb-2"
-  );
-  heading.appendChild(titlenode);
-  TaskContainer.appendChild(heading);
-
-  // create description element
-  let description = document.createElement("p");
-  let descnode = document.createTextNode(descInput);
-  description.setAttribute("class", "leading-relaxed");
-  description.appendChild(descnode);
-  TaskContainer.appendChild(description);
-
-  // create delete task btn
-  let deletebtn = document.createElement("button");
-  let deletebtnnode = document.createTextNode("Delete");
-  deletebtn.setAttribute(
-    "class",
-    "text-purple-500 inline-flex items-center mt-4 cursor-pointer"
-  );
-  deletebtn.appendChild(deletebtnnode);
-  TaskContainer.appendChild(deletebtn);
-  deletebtn.addEventListener("click", deleteTask);
 
   let Alltasks = document.getElementById("tasks");
-  Alltasks.appendChild(TaskContainer);
+
+  Alltasks.append(task);
 
 };
 
@@ -133,21 +114,8 @@ const Todo = () => {
           </div>
 
           <div className="container px-5 py-24 mx-auto">
-            <div className="-my-8 divide-y-2 divide-gray-100">
-              <div className="py-8 flex flex-wrap md:flex-nowrap">
-                <div className="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
-                  <span className="font-semibold title-font text-gray-700">
-                    {day}
-                  </span>
-                  <span className="mt-1 text-gray-500 text-sm">
-                    {date}
-                    <br /> {time}
-                  </span>
-                </div>
-                <div id="tasks">
-                  <div id="task-container" className="md:flex-grow"></div>
-                </div>
-              </div>
+            <div id="tasks" className="-my-8 divide-y-2 divide-gray-100">
+
             </div>
           </div>
         </section>
