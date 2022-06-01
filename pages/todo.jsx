@@ -30,39 +30,38 @@ const addtask = () => {
   let date = `${today.getDate()} ${months[today.getMonth()]} ${today.getFullYear()} `;
   let minutes = today.getMinutes();
   let hour = today.getHours();
+  let meridiem = "AM"
   if (hour > 12) {
+    meridiem = "PM"
     hour = hour % 12;
   }
-  let time = `${hour}:${minutes < 10 ? "0" + minutes : minutes} ${hour < 12 ? "PM" : "AM"
-    }`;
 
+  let time = `${hour}:${minutes < 10 ? "0" + minutes : minutes} ${meridiem}`;
 
   // GET A SOLUTION TO GET INITIALIZATION STATEMENTS OUT OF FUNCTIONS
   // USING DOCUMENT ELEMENT OUTSIDE FUNCTION
   // RESEARCH ON "ReactDOM"
 
-  const deleteTask = () => {
-    task.remove();
-    console.log("deleted Task");
-  };
 
   let titleInput = document.getElementById("title-input").value;
   let descInput = document.getElementById("desc-input").value;
 
   let task = document.createElement("div")
-  task.innerHTML = `<div class="py-8 flex flex-wrap md:flex-nowrap">
-  <div class="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
-    <span class="font-semibold title-font text-gray-700">${day}</span>
-    <span class="mt-1 text-gray-500 text-sm">${date}</span>
-    <span class="mt-1 text-gray-500 text-sm">${time}</span>
+  task.innerHTML = `
+  <div class="py-8 flex flex-wrap md:flex-nowrap">
+    <div class="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
+      <span class="font-semibold title-font text-gray-700">${day}</span>
+      <span class="mt-1 text-gray-500 text-sm">${date}</span>
+      <span class="mt-1 text-gray-500 text-sm">${time}</span>
+    </div>
+    <div class="md:flex-grow">
+      <h2 class="text-2xl font-medium text-gray-900 title-font mb-2">${titleInput}</h2>
+      <p class="leading-relaxed">${descInput}</p>
+      <button  onClick="this.parentElement.parentElement.remove();" class="deleteBtn text-blue-500 inline-flex items-center mt-4">Delete</button>
+      
+    </div>
   </div>
-  <div class="md:flex-grow">
-    <h2 class="text-2xl font-medium text-gray-900 title-font mb-2">${titleInput}</h2>
-    <p class="leading-relaxed">${descInput}.</p>
-    <button onClick="deleteTask" class="text-blue-500 inline-flex items-center mt-4">Delete</button>
-  </div>
-</div>`
-
+`
 
 
   let Alltasks = document.getElementById("tasks");
